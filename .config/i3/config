@@ -1,0 +1,224 @@
+# For the benefit of emacs users: -*- shell-script -*-
+#
+#  _ _____                    __ _
+# (_)___ /    ___ ___  _ __  / _(_) __ _
+# | | |_ \   / __/ _ \| '_ \| |_| |/ _` |
+# | |___) | | (_| (_) | | | |  _| | (_| |
+# |_|____/   \___\___/|_| |_|_| |_|\__, |
+#                                  |___/
+
+# Default modkey
+set $mod Mod4
+
+# Font for window titles 
+font pango: Iosevka Nerd Font 0
+
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty
+
+# kill focused window
+bindsym $mod+q kill
+
+# Open firefox
+bindsym $mod+b exec firefox
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run -l 10
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Ctrl+h move workspace to output left
+bindsym $mod+Ctrl+l move workspace to output right
+
+bindsym $mod+Ctrl+j workspace next
+bindsym $mod+Ctrl+k workspace prev
+
+## Splits
+## Mod1 is the Alt key (run xmodmap to see a complete list)
+
+# split in horizontal orientation
+bindsym $mod+Mod1+v split v
+
+# split in vertical orientation
+bindsym $mod+Mod1+h split h
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Size of floating windows
+floating_minimum_size 400 x 300
+floating_maximum_size 1600 x 1200
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# use Mouse+Mod1 to drag floating windows to their wanted position
+floating_modifier $mod
+
+# focus the parent container
+bindsym $mod+p focus parent
+
+# focus the child container
+#bindsym $mod+c focus child
+
+#############
+# workspace #
+#############
+
+set $terms "1:  "
+set $web "2:  "
+set $knowledge "3:  "
+set $multimedia "4:  "
+set $files "5:  "
+set $office "6:  "
+set $workspace7 "7:  "
+set $workspace8 "8:  "
+set $workspace9 "9:  "
+set $workspace9 "0:  "
+
+# Switch to workspace
+bindsym $mod+1 workspace $terms
+bindsym $mod+2 workspace $web
+bindsym $mod+3 workspace $knowledge
+bindsym $mod+4 workspace $multimedia
+bindsym $mod+5 workspace $files
+bindsym $mod+6 workspace $office
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace0
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $terms
+bindsym $mod+Shift+2 move container to workspace $web
+bindsym $mod+Shift+3 move container to workspace $knowledge
+bindsym $mod+Shift+4 move container to workspace $multimedia
+bindsym $mod+Shift+5 move container to workspace $files
+bindsym $mod+Shift+6 move container to workspace $office
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace0
+
+# Always open some programs on specified workspace
+assign [class="mpv" instance="gl"] → $multimedia
+
+# rename current workspace
+bindsym $mod+comma exec i3-input -F 'rename workspace to "%s"' -P 'New name for this workspace: '
+# rename current window
+bindsym $mod+period exec i3-input -F 'exec i3-msg title_format "%s"' -P 'New name for this window: '
+
+# reload the configuration file
+bindsym $mod+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Ctrl+F12 exec i3-msg exit
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+gaps inner 0px
+
+default_border pixel 1
+default_floating_border pixel 1
+#smart_borders no_gaps
+
+bindsym $mod+Shift+r mode "resize"
+
+# class                 border  bground text    indicator child_border
+client.focused          #6e95bd #6e95bd #F8F8F2 #6e95bd   #6e95bd
+#client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+client.background       #F8F8F2
+
+# Lock screen
+set $i3lockwall sh $I3_CONFIG/scripts/lock.sh
+
+# shutdown / restart / suspend...
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Ctrl+s) shutdown
+
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $i3lockwall, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $i3lockwall && systemctl suspend, \
+    mode "default"
+    bindsym h exec --no-startup-id $i3lockwall && systemctl hibernate, \
+    mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Ctrl+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+x exec betterlockscreen -l 
+
+# Run Polybar
+exec_always /home/qberg/.config/polybar/launch.sh &
+
+# Wallpaper using nitrogen
+exec --no-startup-id nitrogen --restore
