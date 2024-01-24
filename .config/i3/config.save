@@ -82,14 +82,14 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+space floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # Size of floating windows
 floating_minimum_size 400 x 300
 floating_maximum_size 1600 x 1200
 
 # change focus between tiling / floating windows
-bindsym $mod+Shift+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # use Mouse+Mod1 to drag floating windows to their wanted position
 floating_modifier $mod
@@ -150,7 +150,7 @@ bindsym $mod+period exec i3-input -F 'exec i3-msg title_format "%s"' -P 'New nam
 # reload the configuration file
 bindsym $mod+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Ctrl+F12 exec i3-msg exit
 
@@ -184,7 +184,7 @@ default_border pixel 1
 default_floating_border pixel 1
 #smart_borders no_gaps
 
-bindsym $mod+r mode "resize"
+bindsym $mod+Shift+r mode "resize"
 
 # class                 border  bground text    indicator child_border
 client.focused          #6e95bd #6e95bd #F8F8F2 #6e95bd   #6e95bd
@@ -221,7 +221,7 @@ bindsym $mod+x exec betterlockscreen -l
 exec_always /home/qberg/.config/polybar/launch.sh &
 
 # Toggle on/off polybar 
-bindsym $mod+t exec --no-startup-id polybar-msg cmd toggle
+bindsym $mod+space exec --no-startup-id polybar-msg cmd toggle
 
 # Monitor setup
 exec xrandr --no-startup-id --output  HDMI-1 --primary
