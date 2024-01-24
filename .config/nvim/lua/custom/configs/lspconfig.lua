@@ -14,4 +14,9 @@ for _, lsp in ipairs(servers) do
 end
 
 -- 
--- lspconfig.pyright.setup { blabla}
+-- pyright for python 
+lspconfig.pyright.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {"python"},
+})
