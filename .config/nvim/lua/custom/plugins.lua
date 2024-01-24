@@ -2,9 +2,7 @@ local overrides = require("custom.configs.overrides")
 
 ---@type NvPluginSpec[]
 local plugins = {
-
   -- Override plugin definition options
-
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -17,6 +15,13 @@ local plugins = {
   {
     "williamboman/mason.nvim",
     opts = overrides.mason
+  },
+  {
+    "nvimtools/none-ls.nvim",
+    event = "VeryLazy",
+    opts = function()
+      return require "custom.configs.null-ls"
+    end,
   },
 
   -- for rust 
@@ -51,6 +56,27 @@ local plugins = {
       vim.g.rustfmt_autosave = 1
     end
   },
+  -- webdev
+  {
+    "windwp/nvim-ts-autotag",
+    ft = {"javascript", "javascriptreact", "typescript", "typescriptreact"},
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function()
+      local opts = require "plugins.configs.treesitter"
+      opts.ensure_installed = {
+        "lua",
+        "javascript",
+        "typescript",
+        "tsx",
+      }
+      return opts
+    end,
+  },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -78,6 +104,12 @@ local plugins = {
     config = function()
       require "custom.configs.conform"
     end,
+  },
+
+  -- tmux navigation
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
   },
 
   -- To make a plugin not be loaded
