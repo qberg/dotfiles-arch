@@ -1,5 +1,5 @@
 add_newline = false
-format = "$directory$fill$python$git_branch$git_status$cmd_duration$line_break$character"
+format = "$directory$fill$python$nodejs$git_branch$git_status$cmd_duration$line_break$character"
 fill.symbol = " "
 
 [character]
@@ -40,4 +40,8 @@ style = "bg:none fg:#171717"
 
 [python]
 format = "[]($style)[[🐍 ](bg:#171717 fg:#6e95bd)$virtualenv](bg:#171717 fg:#b7b7b7 bold)[ ]($style)"
+style = "bg:none fg:#171717"
+
+[nodejs]
+format = "[]($style)[[󰎙  ](bg:#171717 fg:#6e95bd)$version](bg:#171717 fg:#b7b7b7 bold)[ ]($style)"
 style = "bg:none fg:#171717"
