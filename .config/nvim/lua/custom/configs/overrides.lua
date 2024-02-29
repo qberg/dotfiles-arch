@@ -12,6 +12,7 @@ M.treesitter = {
     "c",
     "markdown",
     "markdown_inline",
+    "elixir",
   },
   indent = {
     enable = true,
@@ -40,6 +41,12 @@ M.mason = {
 
     -- rust stuff 
     "rust-analyzer",
+
+    -- go stuff
+    "gopls",
+
+    -- elixir stuff 
+    "elixir-ls",
   },
 }
 

@@ -77,7 +77,38 @@ local plugins = {
       return opts
     end,
   },
-
+  -- go 
+  {
+    "olexsmir/gopher.nvim",
+    ft = "go",
+    config = function(_, opts)
+      require("gopher").setup(opts)
+      require("core_utils").load_mappings("gopher")
+    end,
+    build = function()
+      vim.cmd [[silent! GoInstallDeps]]
+    end,
+  },
+  {
+    "elixir-tools/elixir-tools.nvim",
+    version = "*",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function ()
+      require "custom.configs.elixir-tools"
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    }
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    ft = "markdown",
+    build = "cd app && npm install",
+    config = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+      require("core.utils").load_mappings "md_preview"
+    end,
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,

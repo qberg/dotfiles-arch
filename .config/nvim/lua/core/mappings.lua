@@ -71,6 +71,7 @@ M.general = {
     -- Don't copy the replaced text after pasting in visual mode
     -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
     ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', "Dont copy replaced text", opts = { silent = true } },
+    ["<leader>p"] = { '[["_dP]]', "greatest remap ever" },
   },
 }
 
@@ -356,6 +357,55 @@ M.nvterm = {
       end,
       "New vertical term",
     },
+
+    ["<leader>py"] = {
+      --
+      function()
+        local file_path = vim.fn.expand "%"
+        local python_run = string.format("python3 %s", file_path)
+
+        require("nvterm.terminal").send(python_run, "float")
+      end,
+
+      "use python3 to run a .py file",
+    },
+
+    ["<leader>gc"] = {
+      function()
+        local file_path = vim.fn.expand "%"
+        local filename = vim.fn.expand("%:t"):match "^([^.]+)" .. ".out"
+
+        local compile_cmd = string.format("clear && g++ -o %s '%s' && ./%s", filename, file_path, filename)
+
+        require("nvterm.terminal").send(compile_cmd, "float")
+      end,
+
+      "use gcc to compile & run a c file",
+    },
+
+    ["<leader>cr"] = {
+      --
+      function()
+        local cargo_compile = string.format "cargo run"
+
+        require("nvterm.terminal").send(cargo_compile, "float")
+      end,
+
+      "use cargo to build and run a cargo project",
+    },
+
+    ["<leader>cl"] = {
+      --
+      function()
+        local file_path = vim.fn.expand "%"
+        local latex_run = string.format("pdflatex %s", file_path)
+
+        require("nvterm.terminal").send(latex_run, "float")
+      end,
+
+      "use latex_run to build and display the generated pdf file",
+    },
+
   },
 }
 
@@ -462,6 +512,13 @@ M.gitsigns = {
       end,
       "Toggle deleted",
     },
+  },
+}
+
+M.md_preview = {
+  plugin = true,
+  n = {
+    ["<leader>mp"] = { "<cmd>MarkdownPreviewToggle<CR>", "Toggle Markdown Preview" },
   },
 }
 
