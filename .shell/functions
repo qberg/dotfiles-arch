@@ -1,0 +1,23 @@
+# ls after cd
+function cd {
+  if [ -z "$1" ];then
+    builtin cd
+  else
+    builtin cd "$1"
+  fi 
+  if [ $? -eq 0 ];then
+    ls 
+  fi
+}
+
+# Moving up the directories
+function up {
+  n=$1;dir=$PWD
+  for ((i=1;i<=n;i++));do dir=$dir/..;done
+  cd $dir
+}
+
+function mkcd {
+  mkdir "$1"
+  cd "$1"
+}

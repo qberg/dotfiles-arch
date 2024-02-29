@@ -1,0 +1,23 @@
+# Clearing the screen
+alias c='clear'
+alias dgg='clear'
+
+# History commands
+alias h='history'
+alias h1='history 10'
+alias h2='history 25'
+
+# Exit commands
+alias :q='exit'
+
+# Some more, to avoid mistakes
+alias rm='rm -i'
+alias rmf='rm -rf'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Quickly load bashrc
+alias sb='source ~/.bashrc'
+
+# Get top process eating memory
+#alias psmem='ps auxf sort -nr -k 4'
